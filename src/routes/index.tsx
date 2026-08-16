@@ -1,24 +1,264 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ROOMS, EXAMINE, HELP, PLAYER, type Room } from "@/lib/game-data";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Mike Demopoulos — CV: A Text Adventure" },
+      {
+        name: "description",
+        content:
+          "Explore the career of Mike Demopoulos, partnerships and technology leader, as a retro text-based terminal adventure.",
+      },
+      { property: "og:title", content: "Mike Demopoulos — CV: A Text Adventure" },
+      {
+        property: "og:description",
+        content:
+          "A playable resume: type commands to explore 10+ years of partnerships, hosting, and open source leadership.",
+      },
+      { property: "og:type", content: "profile" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Game,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+type Line = { text: string; tone?: "sys" | "cmd" | "head" | "loot" | "err" };
+
+const DIRS: Record<string, string> = {
+  n: "north", north: "north",
+  s: "south", south: "south",
+  e: "east", east: "east",
+  w: "west", west: "west",
+  u: "up", up: "up",
+  d: "down", down: "down",
+};
+
+const TOTAL_LOOT = Object.values(ROOMS).filter((r) => r.loot).length;
+
+function roomLines(room: Room, taken: string[]): Line[] {
+  const out: Line[] = [
+    { text: "" },
+    { text: `== ${room.name} ==`, tone: "head" },
+    ...room.desc.map((text) => ({ text })),
+  ];
+  if (room.loot && !taken.includes(room.loot)) {
+    out.push({ text: `You notice an artifact here: ${room.loot}. (TAKE ${room.loot.split(" ")[0]})`, tone: "loot" });
+  }
+  out.push({
+    text: `EXITS: ${Object.keys(room.exits).join(", ").toUpperCase()}`,
+    tone: "sys",
+  });
+  return out;
+}
+
+function Game() {
+  const [roomId, setRoomId] = useState("lobby");
+  const [taken, setTaken] = useState<string[]>([]);
+  const [input, setInput] = useState("");
+  const [history, setHistory] = useState<string[]>([]);
+  const [hIdx, setHIdx] = useState(-1);
+  const [lines, setLines] = useState<Line[]>([
+    { text: "MIKEDEMO SYSTEMS v2.026 — 64K CORE READY", tone: "sys" },
+    { text: "LOADING CURRICULUM VITAE ......... OK", tone: "sys" },
+    { text: "" },
+    { text: `${PLAYER.name} — ${PLAYER.title}`, tone: "head" },
+    { text: "A TEXT ADVENTURE THROUGH A CAREER.", tone: "head" },
+    { text: "" },
+    { text: "Type HELP for commands. Collect all artifacts to win.", tone: "sys" },
+    ...roomLines(ROOMS["lobby"], []),
+  ]);
+
+  const room = ROOMS[roomId];
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
+  }, [lines]);
+
+  const won = useMemo(() => taken.length === TOTAL_LOOT, [taken]);
+
+  function push(newLines: Line[]) {
+    setLines((prev) => [...prev, ...newLines]);
+  }
+
+  function move(dir: string) {
+    const dest = room.exits[dir];
+    if (!dest) return push([{ text: `You can't go ${dir} from here.`, tone: "err" }]);
+    setRoomId(dest);
+    push(roomLines(ROOMS[dest], taken));
+  }
+
+  function run(raw: string) {
+    const cmd = raw.trim().toLowerCase();
+    push([{ text: `> ${raw}`, tone: "cmd" }]);
+    if (!cmd) return;
+    const [verb, ...rest] = cmd.split(/\s+/);
+    const arg = rest.join(" ");
+
+    if (DIRS[verb] && !["go"].includes(verb)) return move(DIRS[verb]);
+
+    switch (verb) {
+      case "go":
+      case "move":
+      case "walk":
+        if (DIRS[arg]) return move(DIRS[arg]);
+        return push([{ text: "Go where? Try GO NORTH.", tone: "err" }]);
+      case "look":
+      case "l":
+        return push(roomLines(room, taken));
+      case "examine":
+      case "x":
+      case "inspect": {
+        const key = Object.keys(EXAMINE).find((k) => arg.includes(k));
+        if (key && room.items?.includes(key)) return push([{ text: EXAMINE[key] }]);
+        return push([{ text: `You see nothing special about "${arg || "that"}".`, tone: "err" }]);
+      }
+      case "take":
+      case "get":
+      case "grab": {
+        if (!room.loot) return push([{ text: "There's nothing to take here.", tone: "err" }]);
+        if (taken.includes(room.loot))
+          return push([{ text: "You already have it.", tone: "err" }]);
+        if (!arg || room.loot.toLowerCase().includes(arg.split(" ")[0])) {
+          const next = [...taken, room.loot];
+          setTaken(next);
+          push([{ text: `Acquired: ${room.loot}  [${next.length}/${TOTAL_LOOT}]`, tone: "loot" }]);
+          if (next.length === TOTAL_LOOT) {
+            push([
+              { text: "" },
+              { text: "*** ALL ARTIFACTS RECOVERED ***", tone: "head" },
+              { text: "You have assembled a full career: partnerships, platforms,", tone: "loot" },
+              { text: "open source stewardship, and a Forbes byline.", tone: "loot" },
+              { text: `Hire the player: ${PLAYER.email}`, tone: "loot" },
+            ]);
+          }
+          return;
+        }
+        return push([{ text: `No "${arg}" here.`, tone: "err" }]);
+      }
+      case "inventory":
+      case "inv":
+      case "i":
+        return push(
+          taken.length
+            ? [
+                { text: `INVENTORY [${taken.length}/${TOTAL_LOOT}]:`, tone: "sys" },
+                ...taken.map((t) => ({ text: `  · ${t}` })),
+              ]
+            : [{ text: "Your pack is empty. Artifacts await.", tone: "sys" }],
+        );
+      case "map":
+        return push([
+          { text: "KNOWN WORLD:", tone: "sys" },
+          ...Object.values(ROOMS).map((r) => ({
+            text: `  ${r.id === roomId ? "»" : " "} ${r.name}`,
+          })),
+        ]);
+      case "contact":
+      case "hire":
+        return push([
+          { text: "TRANSMISSION CHANNELS:", tone: "sys" },
+          { text: `  EMAIL     ${PLAYER.email}` },
+          { text: `  PHONE     ${PLAYER.phone}` },
+          { text: `  LINKEDIN  ${PLAYER.linkedin}` },
+          { text: `  WEB       ${PLAYER.site}` },
+          { text: `  BASE      ${PLAYER.location}` },
+        ]);
+      case "resume":
+      case "cv":
+        return push([
+          { text: "FULL DUMP:", tone: "sys" },
+          ...Object.values(ROOMS).flatMap((r) => [
+            { text: "" },
+            { text: `== ${r.name} ==`, tone: "head" as const },
+            ...r.desc.map((text) => ({ text })),
+          ]),
+        ]);
+      case "clear":
+      case "cls":
+        return setLines([{ text: "Screen cleared.", tone: "sys" }]);
+      case "help":
+      case "?":
+        return push(HELP.map((text) => ({ text, tone: "sys" as const })));
+      default:
+        return push([
+          { text: `I don't know how to "${verb}". Type HELP.`, tone: "err" },
+        ]);
+    }
+  }
+
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    const raw = input;
+    setHistory((h) => [raw, ...h].slice(0, 50));
+    setHIdx(-1);
+    setInput("");
+    run(raw);
+  }
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+    <main
+      className="crt-shell min-h-screen px-3 py-4 sm:px-6 sm:py-8"
+      onClick={() => inputRef.current?.focus()}
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+      <div className="mx-auto flex h-[calc(100dvh-2rem)] max-w-3xl flex-col crt-frame">
+        <header className="flex items-center justify-between border-b border-[var(--phos-dim)] px-3 py-2 text-[0.65rem] tracking-[0.2em] sm:text-xs">
+          <span>MIKEDEMO-TERMINAL</span>
+          <span className="hidden sm:inline">{room.name}</span>
+          <span>{taken.length}/{TOTAL_LOOT} {won ? "· COMPLETE" : ""}</span>
+        </header>
+
+        <div ref={scrollRef} className="crt-screen flex-1 overflow-y-auto px-3 py-3 sm:px-5">
+          {lines.map((l, i) => (
+            <p key={i} data-tone={l.tone ?? "body"} className="crt-line">
+              {l.text || "\u00A0"}
+            </p>
+          ))}
+        </div>
+
+        <form onSubmit={submit} className="flex items-center gap-2 border-t border-[var(--phos-dim)] px-3 py-2 sm:px-5">
+          <span aria-hidden className="crt-prompt">&gt;</span>
+          <input
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowUp") {
+                e.preventDefault();
+                const n = Math.min(hIdx + 1, history.length - 1);
+                if (n >= 0) { setHIdx(n); setInput(history[n]); }
+              } else if (e.key === "ArrowDown") {
+                e.preventDefault();
+                const n = hIdx - 1;
+                setHIdx(n);
+                setInput(n >= 0 ? history[n] : "");
+              }
+            }}
+            aria-label="Enter a command"
+            autoFocus
+            autoComplete="off"
+            spellCheck={false}
+            className="crt-input flex-1"
+            placeholder="type a command…"
+          />
+        </form>
+
+        <nav className="flex flex-wrap gap-1.5 border-t border-[var(--phos-dim)] px-3 py-2 sm:px-5">
+          {["look", "help", "map", "inventory", "contact", "resume"].map((c) => (
+            <button key={c} type="button" className="crt-key" onClick={() => run(c)}>
+              {c.toUpperCase()}
+            </button>
+          ))}
+          {Object.keys(room.exits).map((d) => (
+            <button key={d} type="button" className="crt-key" onClick={() => run(d)}>
+              {d.toUpperCase()}
+            </button>
+          ))}
+        </nav>
+      </div>
+    </main>
   );
 }
