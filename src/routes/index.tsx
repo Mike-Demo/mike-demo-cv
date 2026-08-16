@@ -19,11 +19,37 @@ export const Route = createFileRoute("/")({
           "A playable resume: type commands to explore 10+ years of partnerships, hosting, and open source leadership.",
       },
       { property: "og:type", content: "profile" },
+      { property: "og:url", content: "https://mikedemo.work/" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "https://mikedemo.work/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          url: "https://mikedemo.work/",
+          mainEntity: {
+            "@type": "Person",
+            name: "Mike Demopoulos",
+            jobTitle: "Partnerships Lead",
+            address: {
+              "@type": "PostalPlace",
+              name: "Hudson, Wisconsin, USA",
+            },
+            sameAs: [
+              "https://www.linkedin.com/in/mikedemopoulos",
+              "https://mikedemo.work",
+            ],
+          },
+        }),
+      },
     ],
   }),
   component: Game,
 });
+
 
 type Line = { text: string; tone?: "sys" | "cmd" | "head" | "loot" | "err" };
 
