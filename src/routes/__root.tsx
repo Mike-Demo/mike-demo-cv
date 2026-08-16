@@ -77,15 +77,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Mike Demopoulos — CV Adventure" },
+      { name: "description", content: "The CV of Mike Demopoulos, partnerships and technology leader, reimagined as a retro text-based terminal adventure." },
+      { name: "author", content: "Mike Demopoulos" },
+      { property: "og:title", content: "Mike Demopoulos — CV Adventure" },
+      { property: "og:description", content: "A playable, retro green-phosphor terminal experience through Mike Demopoulos\u2019 career." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Mike Demopoulos — CV Adventure" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
+          ],
     links: [
       {
         rel: "stylesheet",
