@@ -193,3 +193,30 @@ export const HELP = [
   "  CLEAR             wipe the screen",
   "  HELP              this list",
 ];
+
+/** Grid coordinates + short labels used by the live map overlay. */
+export const MAP_POS: Record<string, { x: number; y: number; short: string }> = {
+  council: { x: 0, y: 0, short: "FORBES" },
+  cloud: { x: 1, y: 0, short: "CLOUD" },
+  academy: { x: 0, y: 1, short: "ACADEMY" },
+  lobby: { x: 1, y: 1, short: "ATRIUM" },
+  guild: { x: 2, y: 1, short: "GUILD" },
+  studio: { x: 0, y: 2, short: "STUDIO" },
+  forge: { x: 1, y: 2, short: "FORGE" },
+  treasury: { x: 2, y: 2, short: "TREASURY" },
+};
+
+/** Unique undirected links between rooms, derived from exits. */
+export const MAP_LINKS: Array<[string, string]> = (() => {
+  const seen = new Set<string>();
+  const links: Array<[string, string]> = [];
+  for (const room of Object.values(ROOMS)) {
+    for (const dest of Object.values(room.exits)) {
+      const key = [room.id, dest].sort().join("|");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      links.push([room.id, dest]);
+    }
+  }
+  return links;
+})();
