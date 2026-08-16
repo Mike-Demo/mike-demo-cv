@@ -44,7 +44,7 @@ function roomLines(room: Room, taken: string[]): Line[] {
     ...room.desc.map((text) => ({ text })),
   ];
   if (room.loot && !taken.includes(room.loot)) {
-    out.push({ text: `You notice an artifact here: ${room.loot}. (TAKE ${room.loot.split(" ")[0]})`, tone: "loot" });
+    out.push({ text: `You notice an artifact here: ${room.loot}. (TAKE ${room.loot.split(" ")[0]!})`, tone: "loot" });
   }
   out.push({
     text: `EXITS: ${Object.keys(room.exits).join(", ").toUpperCase()}`,
@@ -67,10 +67,10 @@ function Game() {
     { text: "A TEXT ADVENTURE THROUGH A CAREER.", tone: "head" },
     { text: "" },
     { text: "Type HELP for commands. Collect all artifacts to win.", tone: "sys" },
-    ...roomLines(ROOMS["lobby"], []),
+    ...roomLines(ROOMS["lobby"]!, []),
   ]);
 
-  const room = ROOMS[roomId];
+  const room = ROOMS[roomId]!;
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -88,7 +88,7 @@ function Game() {
     const dest = room.exits[dir];
     if (!dest) return push([{ text: `You can't go ${dir} from here.`, tone: "err" }]);
     setRoomId(dest);
-    push(roomLines(ROOMS[dest], taken));
+    push(roomLines(ROOMS[dest]!, taken));
   }
 
   function run(raw: string) {
@@ -98,13 +98,13 @@ function Game() {
     const [verb, ...rest] = cmd.split(/\s+/);
     const arg = rest.join(" ");
 
-    if (DIRS[verb] && !["go"].includes(verb)) return move(DIRS[verb]);
+    if (DIRS[verb!] && verb !== "go") return move(DIRS[verb!]!);
 
     switch (verb) {
       case "go":
       case "move":
       case "walk":
-        if (DIRS[arg]) return move(DIRS[arg]);
+        if (DIRS[arg]) return move(DIRS[arg]!);
         return push([{ text: "Go where? Try GO NORTH.", tone: "err" }]);
       case "look":
       case "l":
@@ -113,7 +113,7 @@ function Game() {
       case "x":
       case "inspect": {
         const key = Object.keys(EXAMINE).find((k) => arg.includes(k));
-        if (key && room.items?.includes(key)) return push([{ text: EXAMINE[key] }]);
+        if (key && room.items?.includes(key)) return push([{ text: EXAMINE[key]! }]);
         return push([{ text: `You see nothing special about "${arg || "that"}".`, tone: "err" }]);
       }
       case "take":
@@ -122,7 +122,7 @@ function Game() {
         if (!room.loot) return push([{ text: "There's nothing to take here.", tone: "err" }]);
         if (taken.includes(room.loot))
           return push([{ text: "You already have it.", tone: "err" }]);
-        if (!arg || room.loot.toLowerCase().includes(arg.split(" ")[0])) {
+        if (!arg || room.loot.toLowerCase().includes(arg.split(" ")[0]!)) {
           const next = [...taken, room.loot];
           setTaken(next);
           push([{ text: `Acquired: ${room.loot}  [${next.length}/${TOTAL_LOOT}]`, tone: "loot" }]);
@@ -229,12 +229,12 @@ function Game() {
               if (e.key === "ArrowUp") {
                 e.preventDefault();
                 const n = Math.min(hIdx + 1, history.length - 1);
-                if (n >= 0) { setHIdx(n); setInput(history[n]); }
+                if (n >= 0) { setHIdx(n); setInput(history[n] ?? ""); }
               } else if (e.key === "ArrowDown") {
                 e.preventDefault();
                 const n = hIdx - 1;
                 setHIdx(n);
-                setInput(n >= 0 ? history[n] : "");
+                setInput(n >= 0 ? (history[n] ?? "") : "");
               }
             }}
             aria-label="Enter a command"
