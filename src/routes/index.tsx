@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
             name: "Mike Demopoulos",
             jobTitle: "Partnerships Lead",
             address: {
-              "@type": "PostalPlace",
+              "@type": "Place",
               name: "Hudson, Wisconsin, USA",
             },
             sameAs: [
@@ -249,15 +249,21 @@ function Game() {
     >
       <div className="mx-auto flex h-[calc(100dvh-2rem)] max-w-3xl flex-col crt-frame">
         <header className="flex items-center justify-between border-b border-[var(--phos-dim)] px-3 py-2 text-[0.65rem] tracking-[0.2em] sm:text-xs">
-          <span>MIKEDEMO-TERMINAL</span>
+          <h1 className="m-0 text-[0.65rem] font-normal tracking-[0.2em] sm:text-xs">
+            Mike Demopoulos — Interactive CV &amp; Text Adventure
+          </h1>
           <span className="hidden sm:inline">{room.name}</span>
           <span>{taken.length}/{TOTAL_LOOT} {won ? "· COMPLETE" : ""}</span>
         </header>
 
         {showMap ? (
-          <MapPanel current={roomId} visited={visited} onTravel={(dir) => run(dir)} />
+          <section aria-labelledby="map-heading">
+            <h2 id="map-heading" className="sr-only">Explored sector map</h2>
+            <MapPanel current={roomId} visited={visited} onTravel={(dir) => run(dir)} />
+          </section>
         ) : null}
 
+        <h2 className="sr-only">Terminal output</h2>
         <div ref={scrollRef} className="crt-screen flex-1 overflow-y-auto px-3 py-3 sm:px-5">
           {lines.map((l, i) => (
             <p key={i} data-tone={l.tone ?? "body"} className="crt-line">
@@ -293,6 +299,7 @@ function Game() {
           />
         </form>
 
+        <h2 className="sr-only">Command shortcuts and navigation</h2>
         <nav className="flex flex-wrap gap-1.5 border-t border-[var(--phos-dim)] px-3 py-2 sm:px-5">
           {["look", "help", "map", "inventory", "contact", "resume"].map((c) => (
             <button key={c} type="button" className="crt-key" onClick={() => run(c)}>
