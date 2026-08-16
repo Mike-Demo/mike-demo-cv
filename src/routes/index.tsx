@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ROOMS, EXAMINE, HELP, PLAYER, type Room } from "@/lib/game-data";
+import { ROOMS, EXAMINE, HELP, PLAYER, MAP_POS, type Room } from "@/lib/game-data";
+import { MapPanel } from "@/components/MapPanel";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -59,6 +60,8 @@ function Game() {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [hIdx, setHIdx] = useState(-1);
+  const [visited, setVisited] = useState<string[]>(["lobby"]);
+  const [showMap, setShowMap] = useState(true);
   const [lines, setLines] = useState<Line[]>([
     { text: "MIKEDEMO SYSTEMS v2.026 — 64K CORE READY", tone: "sys" },
     { text: "LOADING CURRICULUM VITAE ......... OK", tone: "sys" },
@@ -88,7 +91,17 @@ function Game() {
     const dest = room.exits[dir];
     if (!dest) return push([{ text: `You can't go ${dir} from here.`, tone: "err" }]);
     setRoomId(dest);
+    const firstVisit = !visited.includes(dest);
+    if (firstVisit) setVisited((v) => [...v, dest]);
     push(roomLines(ROOMS[dest]!, taken));
+    if (firstVisit) {
+      push([
+        {
+          text: `MAP UPDATED — ${visited.length + 1}/${Object.keys(MAP_POS).length} sectors charted.`,
+          tone: "sys",
+        },
+      ]);
+    }
   }
 
   function run(raw: string) {
@@ -151,11 +164,15 @@ function Game() {
             : [{ text: "Your pack is empty. Artifacts await.", tone: "sys" }],
         );
       case "map":
+        setShowMap((v) => !v);
         return push([
-          { text: "KNOWN WORLD:", tone: "sys" },
-          ...Object.values(ROOMS).map((r) => ({
-            text: `  ${r.id === roomId ? "»" : " "} ${r.name}`,
-          })),
+          { text: `SECTOR MAP ${showMap ? "HIDDEN" : "SHOWN"}.`, tone: "sys" },
+          { text: "CHARTED SECTORS:", tone: "sys" },
+          ...Object.values(ROOMS).map((r) =>
+            visited.includes(r.id)
+              ? { text: `  ${r.id === roomId ? "»" : " "} ${r.name}` }
+              : { text: "    ?????? (unexplored)", tone: "sys" as const },
+          ),
         ]);
       case "contact":
       case "hire":
@@ -210,6 +227,10 @@ function Game() {
           <span className="hidden sm:inline">{room.name}</span>
           <span>{taken.length}/{TOTAL_LOOT} {won ? "· COMPLETE" : ""}</span>
         </header>
+
+        {showMap ? (
+          <MapPanel current={roomId} visited={visited} onTravel={(dir) => run(dir)} />
+        ) : null}
 
         <div ref={scrollRef} className="crt-screen flex-1 overflow-y-auto px-3 py-3 sm:px-5">
           {lines.map((l, i) => (
