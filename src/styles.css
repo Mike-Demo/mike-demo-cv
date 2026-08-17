@@ -249,6 +249,20 @@
   box-shadow: 0 0 12px var(--phos-glow);
 }
 
+/* PDF fallback button — larger and brighter for readability */
+.pdf-key {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  color: var(--phos);
+  border-color: var(--phos);
+  letter-spacing: 0.08em;
+}
+.pdf-key:hover {
+  color: var(--crt-deep);
+  background: var(--phos);
+  border-color: var(--phos);
+}
+
 /* ── Live sector map ──────────────────────────────────────────── */
 .crt-map {
   border-bottom: 1px solid var(--phos-dim);
