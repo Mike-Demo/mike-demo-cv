@@ -252,8 +252,19 @@ function Game() {
           <h1 className="m-0 text-[0.65rem] font-normal tracking-[0.2em] sm:text-xs">
             Mike Demopoulos — Interactive CV &amp; Text Adventure
           </h1>
-          <span className="hidden sm:inline">{room.name}</span>
-          <span>{taken.length}/{TOTAL_LOOT} {won ? "· COMPLETE" : ""}</span>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="hidden sm:inline">{room.name}</span>
+            <a
+              href="/Mike_Demopoulos_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="crt-key inline-flex items-center"
+              aria-label="Open PDF version of CV"
+            >
+              PDF CV
+            </a>
+            <span>{taken.length}/{TOTAL_LOOT} {won ? "· COMPLETE" : ""}</span>
+          </div>
         </header>
 
         {showMap ? (
