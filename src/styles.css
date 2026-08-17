@@ -256,6 +256,7 @@
   color: var(--phos);
   border-color: var(--phos);
   letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 .pdf-key:hover {
   color: var(--crt-deep);
