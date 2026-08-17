@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { ROOMS, EXAMINE, HELP, PLAYER, MAP_POS, type Room } from "@/lib/game-data";
 import { MapPanel } from "@/components/MapPanel";
 
@@ -258,10 +260,11 @@ function Game() {
               href="/Mike_Demopoulos_CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="crt-key inline-flex items-center"
+              className="crt-key pdf-key inline-flex items-center gap-1"
               aria-label="Open PDF version of CV"
             >
-              PDF CV
+              <FontAwesomeIcon icon={faFilePdf} size="sm" />
+              <span>PDF CV</span>
             </a>
             <span>{taken.length}/{TOTAL_LOOT} {won ? "· COMPLETE" : ""}</span>
           </div>
