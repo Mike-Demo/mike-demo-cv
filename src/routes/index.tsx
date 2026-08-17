@@ -260,7 +260,7 @@ function Game() {
               href="/Mike_Demopoulos_CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="crt-key pdf-key inline-flex items-center gap-1 whitespace-nowrap"
+              className="crt-key pdf-key inline-flex items-center gap-1"
               aria-label="Open PDF version of CV"
             >
               <FontAwesomeIcon icon={faFilePdf} size="sm" />
