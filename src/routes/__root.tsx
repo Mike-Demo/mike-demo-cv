@@ -86,7 +86,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Mike Demopoulos — CV Adventure" },
       { name: "twitter:card", content: "summary_large_image" },
-          ],
+      { name: "google-site-verification", content: "p9zSWKrHQjlFQB5FvkHLeSWcdxya53S3UpOum9iMsMQ" },
+    ],
     links: [
       { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@3.12.0/dist/styles/webawesome.css" },
       { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.3.1/css/all.min.css" },
