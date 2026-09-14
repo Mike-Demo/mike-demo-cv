@@ -8,17 +8,17 @@ import { MapPanel } from "@/components/MapPanel";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mike Demopoulos — CV: A Text Adventure" },
+      { title: "Mike Demopoulos — Partnerships CV as a Text Adventure" },
       {
         name: "description",
         content:
-          "Explore the career of Mike Demopoulos, partnerships and technology leader, as a retro text-based terminal adventure.",
+          "Play through the career of Mike \u201CDemo\u201D Demopoulos: strategic partnerships, alliances, and go-to-market leadership across cloud, hosting, and open source.",
       },
-      { property: "og:title", content: "Mike Demopoulos — CV: A Text Adventure" },
+      { property: "og:title", content: "Mike Demopoulos — Partnerships CV as a Text Adventure" },
       {
         property: "og:description",
         content:
-          "A playable resume: type commands to explore 10+ years of partnerships, hosting, and open source leadership.",
+          "A playable resume: type commands to explore partner go-to-market wins across hosting.com, Codeable, InMotion/BoldGrid, Joomla, and Forbes Agency Council.",
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: "https://mikedemo.work/" },
@@ -35,7 +35,9 @@ export const Route = createFileRoute("/")({
           mainEntity: {
             "@type": "Person",
             name: "Mike Demopoulos",
-            jobTitle: "Partnerships Lead",
+            alternateName: "Mike \u201CDemo\u201D Demopoulos",
+            jobTitle: "Partnerships Lead, North America",
+            worksFor: { "@type": "Organization", name: "hosting.com" },
             address: {
               "@type": "Place",
               name: "Hudson, Wisconsin, USA",
