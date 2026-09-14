@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { WebAwesomeLoader } from "@/design-system/font-awsome-web-awesome-171158";
 
 function NotFoundComponent() {
   return (
@@ -104,7 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="wa-theme-default wa-palette-default wa-light">
       <head>
         <HeadContent />
       </head>
@@ -122,7 +123,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <WebAwesomeLoader />
       <Outlet />
+
     </QueryClientProvider>
   );
 }
