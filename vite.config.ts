@@ -13,6 +13,13 @@ export default defineConfig({
     server: { entry: "server" },
     // Every public, non-parameterized route. Prerendered to static HTML at build time.
     pages: [{ path: "/" }],
-    prerender: { enabled: true, autoStaticPathsDiscovery: false },
+    // crawlLinks/failOnError are pinned automatically inside Lovable; state them
+    // explicitly so external CI (Spacefast) gets the same behaviour.
+    prerender: {
+      enabled: true,
+      autoStaticPathsDiscovery: false,
+      crawlLinks: false,
+      failOnError: false,
+    },
   },
 });
