@@ -307,10 +307,11 @@ function Game() {
               }
             }}
             aria-label="Enter a command"
-            autoFocus
             autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
             spellCheck={false}
-            className="crt-input flex-1"
+            className="crt-input min-w-0 flex-1"
             placeholder="type a command…"
           />
         </form>
