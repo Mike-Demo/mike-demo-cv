@@ -251,9 +251,9 @@ function Game() {
       className="crt-shell min-h-screen px-3 py-4 sm:px-6 sm:py-8"
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="mx-auto flex h-[calc(100dvh-2rem)] max-w-3xl flex-col crt-frame">
-        <header className="flex items-center justify-between border-b border-[var(--phos-dim)] px-3 py-2 text-[0.65rem] tracking-[0.2em] sm:text-xs">
-          <h1 className="m-0 text-[0.65rem] font-normal tracking-[0.2em] sm:text-xs">
+      <div className="mx-auto flex h-[calc(100dvh-2rem)] w-full max-w-3xl flex-col crt-frame">
+        <header className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 border-b border-[var(--phos-dim)] px-3 py-2 text-[0.65rem] tracking-[0.2em] sm:text-xs">
+          <h1 className="m-0 min-w-0 text-[0.65rem] font-normal tracking-[0.2em] sm:text-xs">
             Mike Demopoulos — Interactive CV &amp; Text Adventure
           </h1>
           <div className="flex items-center gap-2 sm:gap-3">
