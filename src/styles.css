@@ -137,6 +137,12 @@
     border-color: var(--color-border);
   }
 
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -164,6 +170,7 @@
 .crt-frame {
   position: relative;
   overflow: hidden;
+  max-width: 100%;
   border: 1px solid var(--phos-dim);
   border-radius: 12px;
   background: var(--crt-bg);
@@ -228,9 +235,14 @@
   outline: none;
   color: var(--phos);
   font-family: var(--font-terminal);
-  font-size: 0.875rem;
+  /* 16px minimum prevents mobile browsers zooming the page on focus */
+  font-size: 1rem;
+  min-width: 0;
   caret-color: var(--amber);
   text-shadow: 0 0 6px var(--phos-glow);
+}
+@media (min-width: 640px) {
+  .crt-input { font-size: 0.875rem; }
 }
 .crt-input::placeholder { color: var(--phos-dim); opacity: 0.6; }
 
