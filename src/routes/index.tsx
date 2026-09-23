@@ -249,7 +249,9 @@ function Game() {
   return (
     <main
       className="crt-shell min-h-screen px-3 py-4 sm:px-6 sm:py-8"
-      onClick={() => inputRef.current?.focus()}
+      onClick={() => {
+        if (window.matchMedia("(pointer: fine)").matches) inputRef.current?.focus();
+      }}
     >
       <div className="mx-auto flex h-[calc(100dvh-2rem)] w-full max-w-3xl flex-col crt-frame">
         <header className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 border-b border-[var(--phos-dim)] px-3 py-2 text-[0.65rem] tracking-[0.2em] sm:text-xs">
