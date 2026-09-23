@@ -170,6 +170,7 @@
 .crt-frame {
   position: relative;
   overflow: hidden;
+  max-width: 100%;
   border: 1px solid var(--phos-dim);
   border-radius: 12px;
   background: var(--crt-bg);
