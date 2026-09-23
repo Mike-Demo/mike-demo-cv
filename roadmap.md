@@ -32,8 +32,8 @@ Consolidated from the archived plans in `.lovable/plan/`.
 
 ## Open
 
-- [ ] **Swap in the v3.5.1 PDF export** — `public/Mike_Demopoulos_CV.pdf` is
-      still the older file; replace it once the new export is available.
+- [x] **Swap in the v3.5.1 PDF export** — `public/Mike_Demopoulos_CV.pdf`
+      replaced with the v3.5.1 master resume.
 - [ ] **Publish the latest build** — the live site serves the last published
       deployment, so recent fixes reach visitors on the next publish.
 - [ ] **Trim the design-system bundle** — the vendored Web Awesome chunk is
