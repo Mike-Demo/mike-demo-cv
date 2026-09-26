@@ -23,6 +23,12 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "profile" },
       { property: "og:url", content: "https://mikedemo.work/" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Mike Demopoulos — Partnerships CV as a Text Adventure" },
+      {
+        name: "twitter:description",
+        content:
+          "A playable resume: type commands to explore partner go-to-market wins across hosting.com, Codeable, InMotion/BoldGrid, Joomla, and Forbes Agency Council.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://mikedemo.work/" }],
     scripts: [
@@ -47,6 +53,22 @@ export const Route = createFileRoute("/")({
               "https://mikedemo.work",
             ],
           },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "VideoGame",
+          name: "Mike Demopoulos — CV Adventure",
+          url: "https://mikedemo.work/",
+          description:
+            "A playable text-adventure CV: explore eight rooms charting the partnerships career of Mike Demopoulos — hosting.com, Codeable, InMotion Hosting/BoldGrid, Joomla, Forbes Agency Council — collect all 8 artifacts to win.",
+          author: { "@type": "Person", name: "Mike Demopoulos" },
+          gamePlatform: "Web browser",
+          genre: ["Text adventure", "Interactive fiction", "Resume"],
+          playMode: "SinglePlayer",
+          applicationCategory: "GameApplication",
         }),
       },
     ],
