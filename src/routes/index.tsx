@@ -71,6 +71,117 @@ export const Route = createFileRoute("/")({
           applicationCategory: "GameApplication",
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "@id": "https://mikedemo.work/#website",
+              url: "https://mikedemo.work/",
+              name: "Mike Demopoulos — CV Adventure",
+              description:
+                "The CV of Mike Demopoulos, partnerships and technology leader, reimagined as a retro text-based terminal adventure.",
+              inLanguage: "en",
+              author: { "@id": "https://mikedemo.work/#person" },
+              publisher: { "@id": "https://mikedemo.work/#person" },
+            },
+            {
+              "@type": "Person",
+              "@id": "https://mikedemo.work/#person",
+              name: "Mike Demopoulos",
+              alternateName: "Mike “Demo” Demopoulos",
+              url: "https://mikedemo.work/",
+              jobTitle: "Partnerships Lead, North America",
+              worksFor: {
+                "@type": "Organization",
+                name: "hosting.com",
+                url: "https://hosting.com",
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Hudson",
+                addressRegion: "WI",
+                addressCountry: "US",
+              },
+              email: "mailto:hey.demo@mikedemo.email",
+              sameAs: [
+                "https://www.linkedin.com/in/mikedemopoulos",
+                "https://x.com/MikeDemo",
+                "https://github.com/Mike-Demo",
+                "https://mikedemo.dev",
+                "https://mikedemo.com",
+                "https://mikedemo.work",
+              ],
+              knowsAbout: [
+                "Strategic partnerships",
+                "Channel partnerships",
+                "Go-to-market strategy",
+                "Cloud infrastructure",
+                "Web hosting",
+                "Open source",
+                "WordPress ecosystems",
+                "AI workflows",
+              ],
+            },
+            {
+              "@type": "FAQPage",
+              "@id": "https://mikedemo.work/#faq",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is the CV Adventure?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "The CV Adventure at mikedemo.work is the resume of Mike “Demo” Demopoulos — partnerships and technology leader — reimagined as a playable retro text adventure. Visitors explore eight rooms, one per career stop, and collect eight artifacts.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do I play the CV Adventure?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Type commands into the terminal prompt, or tap the shortcut keys under the screen. Type HELP for the full command list. Directions like NORTH (or N) move between rooms, EXAMINE inspects objects, and TAKE collects the room's artifact.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do you win the CV Adventure?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Collect all eight artifacts — one per room — with the TAKE command. When all eight are in your inventory, the game prints ALL ARTIFACTS RECOVERED and invites you to hire the player.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do I contact Mike Demopoulos?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Type CONTACT (or HIRE) in the game terminal, email hey.demo@mikedemo.email, or connect on LinkedIn at linkedin.com/in/mikedemopoulos.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Where can I download the CV as a PDF?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "A PDF version of the CV is linked in the game header and available directly at https://mikedemo.work/Mike_Demopoulos_CV.pdf.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is Mike Demopoulos's professional background?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Mike Demopoulos is a strategic partnerships and alliances leader: Partnerships Lead, North America at hosting.com; previously Head of Partnerships at Codeable; Business Development Specialist and Product Evangelist at InMotion Hosting (BoldGrid); board member of Open Source Matters (Joomla); and a Forbes Agency Council member.",
+                  },
+                },
+              ],
+            },
+          ],
+        }),
+      },
     ],
   }),
   component: Game,
