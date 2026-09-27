@@ -78,6 +78,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        httpEquiv: "Content-Security-Policy",
+        content:
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests",
+      },
       { title: "Mike Demopoulos — CV Adventure" },
       { name: "description", content: "The CV of Mike Demopoulos, partnerships and technology leader, reimagined as a retro text-based terminal adventure." },
       { name: "author", content: "Mike Demopoulos" },
