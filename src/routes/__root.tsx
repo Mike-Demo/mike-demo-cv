@@ -80,7 +80,7 @@ export const Route = createRootRoute()({
       {
         httpEquiv: "Content-Security-Policy",
         content:
-          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests",
+          "default-src 'self'; script-src 'self' 'unsafe-inline' https://umami-lite.view.fast; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self' https://umami-lite.view.fast; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests",
       },
       { title: "Mike Demopoulos — CV Adventure" },
       { name: "description", content: "The CV of Mike Demopoulos, partnerships and technology leader, reimagined as a retro text-based terminal adventure." },
@@ -99,6 +99,13 @@ export const Route = createRootRoute()({
         href: appCss,
       },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
+    ],
+    scripts: [
+      {
+        src: "https://umami-lite.view.fast/tracker.js",
+        defer: true,
+        "data-website-id": "8cda4330-0b22-414d-8ba1-5eaaa8d3501e",
+      },
     ],
   }),
   shellComponent: RootShell,
