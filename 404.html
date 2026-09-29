@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mikedemo.work</title>
+<script>
+/* Fallback for static hosts that serve this 404 page instead of honoring
+   the _redirects rewrite: stash the requested path, then boot the app
+   at / where it picks the path back up for slug parsing. */
+try { sessionStorage.setItem('mdw_slug_path', location.pathname); } catch (e) {}
+location.replace('/');
+</script>
+</head>
+<body>
+<noscript><p>Please enable JavaScript, or visit <a href="/">mikedemo.work</a>.</p></noscript>
+</body>
+</html>

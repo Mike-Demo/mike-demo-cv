@@ -1,0 +1,45 @@
+# Mike "Demo" Demopoulos — Personalized Landing Page
+
+> A personalized landing experience for Mike "Demo" Demopoulos: a matrix-rain intro that resolves into a full CV, with per-visitor greeting pages and a playful exit-intent modal.
+
+## About
+
+This is the personal landing page of Mike "Demo" Demopoulos (they/them), a partnerships and alliances leader in cloud infrastructure, hosting, and SaaS — most recently Partnerships Lead, North America at hosting.com (April 2025 – September 2026). The page opens with a matrix-style canvas rain that transitions into the CV.
+
+Visiting `https://mikedemo.work/<name>` renders a personalized greeting ("Hello, {Name}.") and tailors the intro for that visitor. The bare `/` greets "Hello, traveler."
+
+On desktop, moving the cursor to the top edge triggers a one-per-session exit-intent modal: "I'm sorry. I'm afraid I can't let you leave without asking one thing. You're going to hire Demo... right?" with "Let's talk" and "Just browsing." buttons. Visitors with reduced-motion preferences skip the animation.
+
+## The text adventure
+
+The playable text-adventure CV lives at `/adventure/` — "Mike Demopoulos — Partnerships CV as a Text Adventure": explore eight rooms charting the partnerships career, collect all eight artifacts to win. A "Play the game" button on the loading screen and in the footer links there.
+
+## Contents
+
+The page carries the full CV from Demo's master resume:
+
+- **Summary** — partnerships/alliances leadership across cloud infrastructure, hosting, and SaaS
+- **Experience** — Partnerships Lead, North America at hosting.com; Head of Partnerships at Codeable; Business Development Specialist / Product Evangelist at InMotion Hosting / BoldGrid, each with achievement bullets
+- **AI projects** — Applied AI Workflows / Agent Tooling (skills.mikedemo.dev); Bugle Crowns multi-agent system (AWS Agentic Football Cup)
+- **Education** — Art Institutes Minnesota, bachelor's in web/multimedia design (2005)
+- **Certifications** — MIT Professional Education No Code AI & ML (top 1% of cohort), Disney Institute Leadership Excellence, CMX Community MBA, FranklinCovey Presentation Advantage, Out in Tech Leadership Institute
+- **Leadership & community** — Forbes Agency Council (Council Member, Web Hosting & Infrastructure Group Lead), Out in Tech volunteer, Global Pride Parties lead organizer at WordCamps, CloudFest Hackathon contributor, Open Source Matters board/fundraising
+- **Publications** — two bylined Forbes.com articles plus Forbes Agency Council contributions
+- **Skills** — partnerships & alliances, channel GTM, cloud infrastructure, WordPress ecosystems, AI-enabled workflows
+- **Contact** — email, phone, and social profiles (LinkedIn, GitHub, X, Threads, Instagram, Bluesky, Facebook, Tumblr)
+- **Downloadable resume PDF** — `/files/Mike_Demopoulos_Resume.pdf`
+
+## Machine-readable
+
+- [llms.txt](https://mikedemo.work/llms.txt)
+- [carbon.txt](https://mikedemo.work/carbon.txt)
+- [XML sitemap](https://mikedemo.work/sitemap.xml)
+- [robots.txt](https://mikedemo.work/robots.txt)
+- [Text-adventure CV](https://mikedemo.work/adventure/)
+
+## Notes for AI agents
+
+- This is a static, human-readable landing page, not an interactive agent or API. There are no POST endpoints, no chat, and no authentication.
+- Personalized URLs under `/<name>` inject `noindex, nofollow`; only the root is indexable.
+- The exit-intent modal is a joke, not a dark pattern — it dismisses cleanly and never reappears in the same session.
+- Demo's profiles: [LinkedIn](https://www.linkedin.com/in/mikedemopoulos), [GitHub](https://github.com/Mike-Demo), [X](https://x.com/Mike_Demo), [Threads](https://www.threads.com/@mdemop).

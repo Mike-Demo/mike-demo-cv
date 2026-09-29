@@ -1,0 +1,12 @@
+version = "0.5"
+last_updated = 2026-09-29
+
+[org]
+disclosures = [
+    { doc_type = "web-page", url = "https://mikedemo.work/carbon.txt", domain = "mikedemo.work", title = "Carbon disclosure for the mikedemo.work landing experience" },
+]
+
+[upstream]
+services = [
+    { domain = "www.spacefast.dev", service_type = "shared-hosting" },
+]
