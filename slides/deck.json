@@ -1,0 +1,211 @@
+{
+  "boltSlidesVersion": 1,
+  "boltSlidesId": "11011050-f9d6-4d43-8a9e-3e43af51bbaf",
+  "deck": {
+    "title": "mikedemo.work — a CV that knows its audience",
+    "transition": "fade",
+    "font": "space",
+    "accent": "#1688fc"
+  },
+  "slides": [
+    {
+      "id": "s1",
+      "position": 0,
+      "layout": "cover",
+      "props": {
+        "kicker": "mikedemo.work",
+        "title": "A CV that ==knows its audience==.",
+        "subtitle": "One master resume, rendered for whoever is reading it — no forks, no stale PDFs.",
+        "foot": "mikedemo.work · github.com/Mike-Demo/mike-demo-cv"
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Hook: everyone reading your CV is different — so why does every reader get the same document? Set up that this site answers that.",
+      "status": "none"
+    },
+    {
+      "id": "s2",
+      "position": 1,
+      "layout": "contrast",
+      "props": {
+        "kicker": "The problem",
+        "title": "One PDF, ==none of them== fit.",
+        "left": {
+          "label": "A static resume",
+          "title": "One-size-fits-none",
+          "points": [
+            "Every reader cares about something different",
+            "A PDF can't tell partnership wins from product work",
+            "It can't tailor itself to the company reading it"
+          ]
+        },
+        "right": {
+          "label": "What readers actually want",
+          "title": "Framed for them",
+          "points": [
+            "A hiring manager scans the most relevant track record first",
+            "A partner sees the deals, not the sprint cadence",
+            "The same true story, angled at the audience"
+          ]
+        }
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "The tension: one document can't serve every reader. Not because the content is wrong — because the framing can't change.",
+      "status": "none"
+    },
+    {
+      "id": "s3",
+      "position": 2,
+      "layout": "bento",
+      "props": {
+        "kicker": "What it does",
+        "title": "A ==living CV== with a front door for every reader.",
+        "tiles": [
+          {
+            "title": "Built from one master resume",
+            "body": "The public CV site is generated from a single source of truth.",
+            "c": 3
+          },
+          {
+            "title": "Personalized landing pages",
+            "body": "Share a link with a company slug — that reader lands on a version framed for them.",
+            "c": 3,
+            "variant": "accent"
+          },
+          {
+            "title": "Live, not attached",
+            "body": "Always current, clickable, and addressable at a URL you control.",
+            "c": 2
+          },
+          {
+            "title": "Playable history",
+            "body": "An /adventure/ route turns the career into a text-adventure game.",
+            "c": 2
+          },
+          {
+            "title": "Open source",
+            "body": "The whole thing lives in a public repo.",
+            "c": 2
+          }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Walk the grid left to right. The headline capability is the personalization link — everything else hangs off the same master resume.",
+      "status": "none"
+    },
+    {
+      "id": "s4",
+      "position": 3,
+      "layout": "steps",
+      "props": {
+        "kicker": "How it works",
+        "title": "One source of truth, ==many front doors==.",
+        "items": [
+          {
+            "title": "Master resume",
+            "body": "A single master resume holds every role, win, and fact — the only place content is edited."
+          },
+          {
+            "title": "Rendered into the public CV",
+            "body": "The CV site is generated from that source, so it can never drift out of date."
+          },
+          {
+            "title": "Personalized by the URL",
+            "body": "Per-reader personalization is driven by the link — no forked copies to maintain, ever."
+          }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "The architecture point: personalization happens at render time from the URL, so there's exactly one copy of the truth.",
+      "status": "none"
+    },
+    {
+      "id": "s5",
+      "position": 4,
+      "layout": "poster",
+      "props": {
+        "label": "The playful side",
+        "title": "Your career, ==as a text adventure==.",
+        "body": "The /adventure/ route turns the career history into something you can play — jobs become rooms, wins become discoveries. A CV someone remembers, because they played it.",
+        "image": "/adventure.webp",
+        "inset": true
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Personality beat. If the room smiles, say: it's the same resume content — just rendered as an adventure instead of a PDF.",
+      "status": "none"
+    },
+    {
+      "id": "s6",
+      "position": 5,
+      "layout": "statGrid",
+      "props": {
+        "kicker": "Key features",
+        "title": "Everything a modern CV should be.",
+        "stats": [
+          { "value": "1", "label": "Master resume", "caption": "one source of truth for every rendering" },
+          { "value": "/acme", "label": "Company slugs", "caption": "share a link, land a tailored version" },
+          { "value": "/adventure", "label": "Playable history", "caption": "the career as a text-adventure game" },
+          { "value": "OSS", "label": "Open source", "caption": "public repo, hand-deployed releases" }
+        ]
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Quick features pass — the point is breadth from a single source, not any one number.",
+      "status": "none"
+    },
+    {
+      "id": "s7",
+      "position": 6,
+      "layout": "statement",
+      "props": {
+        "kicker": "Status",
+        "title": "Live at mikedemo.work — ==hand-deployed== with care.",
+        "body": "Every release ships deliberately, not automatically — the site is live today and maintained by hand."
+      },
+      "background": { "type": "color", "color": "var(--bg)" },
+      "animation": "cascade",
+      "transition": null,
+      "nav": null,
+      "notes": "Honest status: it's live, it works, and each release gets personal attention rather than blind automation.",
+      "status": "none"
+    },
+    {
+      "id": "s8",
+      "position": 7,
+      "layout": "cover",
+      "props": {
+        "kicker": "See it for yourself",
+        "title": "==mikedemo.work==",
+        "subtitle": "github.com/Mike-Demo/mike-demo-cv",
+        "foot": "Thanks — go make your CV know its audience too."
+      },
+      "background": {
+        "type": "gradient",
+        "from": "#06080d",
+        "to": "#0a1626",
+        "angle": 160
+      },
+      "animation": "cascade",
+      "transition": "zoom",
+      "nav": null,
+      "notes": "Close on the links. Invite them to try a company-slug link and the /adventure/ route live.",
+      "status": "none"
+    }
+  ]
+}
